@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import { router as testRoutes } from "./routes/testRoutes";
-import { router as taskRoutes } from "./routes/taskRoutes";
+import { router as taskRoutes } from "./routes/tasksRoutes";
 import { connectDB } from "./config/db";
 
 const app: Express = express();

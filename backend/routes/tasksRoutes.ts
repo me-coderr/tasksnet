@@ -2,15 +2,15 @@ import { Router } from "express";
 import {
   createTask,
   deleteTask,
-  fetchAll,
+  fetchTasks,
   updateTask,
-} from "../controllers/taskControllers";
+} from "../controllers/tasksControllers";
 
 const router = Router();
 
 router.post("/create", createTask);
 router.put("/update", updateTask);
-router.get("/", fetchAll);
+router.get("/", fetchTasks);
 router.delete("/delete", deleteTask);
 
 export { router };

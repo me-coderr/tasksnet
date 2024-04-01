@@ -16,14 +16,24 @@ interface IUpdatingTaskData {
   isConnected: boolean | null;
 }
 
-const fetchAll = expressAsyncHandler(async (req: Request, res: Response) => {
+const fetchTasks = expressAsyncHandler(async (req: Request, res: Response) => {
   try {
-    const tasks: ITask[] | null = await Task.find();
+    if (req.body._id) {
+      const task: ITask | null = await Task.findById(req.body._id);
 
-    if (tasks) {
-      res.status(200).send(tasks);
+      if (task) {
+        res.status(200).send(task);
+      } else {
+        throw new Error("No tasks found");
+      }
     } else {
-      throw new Error("No tasks found");
+      const tasks: ITask[] | ITask | null = await Task.find();
+
+      if (tasks) {
+        res.status(200).send(tasks);
+      } else {
+        throw new Error("No tasks found");
+      }
     }
   } catch (err) {
     if (err instanceof Error) {
@@ -116,4 +126,4 @@ const deleteTask = expressAsyncHandler(async (req: Request, res: Response) => {
   }
 });
 
-export { createTask, updateTask, fetchAll, deleteTask };
+export { createTask, updateTask, fetchTasks, deleteTask };
